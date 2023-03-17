@@ -28,7 +28,7 @@ def generate_lyrics(user_artist):
 
     # Save df to csv
     file_name = user_artist.lower().replace(' ', '_')
-    df.to_csv(f'Lyrics/{file_name}.csv')
+    df.to_csv(f'Lyrics/{file_name}.csv', index=False)
 
 def clean_lyrics(raw_lyrics):
     # Change to lowercase
@@ -47,7 +47,8 @@ def clean_lyrics(raw_lyrics):
             cleaned = True
         
     # Clean lyrics by removing puncuation, spaces, and new lines
-    clean_lyrics = clean_lyrics.replace('\n', ' ').replace('  ', ' ').replace('’', '').translate(str.maketrans('', '', string.punctuation)).strip()
+    # clean_lyrics = clean_lyrics.replace('\n', ' ').replace('  ', ' ').replace('’', '').translate(str.maketrans('', '', string.punctuation)).strip()
+    clean_lyrics = clean_lyrics.translate(str.maketrans('', '', string.punctuation)).strip().replace('’', '')
 
     # Remove 'embed' and numbers
     embed = clean_lyrics.find('embed')
@@ -72,7 +73,8 @@ if __name__ == '__main__':
     user_artists = ['Ed Sheeran',
                     'Linkin Park',
                     'Bring Me the Horizon',
-                    'Adele']
+                    'Adele',
+                    'Palisades']
     
     for artist in user_artists:
         try:
